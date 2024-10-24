@@ -102,7 +102,7 @@ class PreparedStatementUserRepositoryTest {
     @Order(5)
     @DisplayName("change password , user100")
     void updateUserPasswordByUserId() {
-        String id="user100";
+        String id="user10";
         String newPassword="12345";
 
 
@@ -122,7 +122,7 @@ class PreparedStatementUserRepositoryTest {
     @DisplayName("delete by userid : user100")
     void deleteByUserId() {
 
-        String id = "user100";
+        String id = "user10";
         int result = userRepository.deleteByUserId(id);
         Assertions.assertAll(
                 ()->Assertions.assertEquals(1,result),
