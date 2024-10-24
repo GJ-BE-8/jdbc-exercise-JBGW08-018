@@ -47,26 +47,42 @@ public class ClubRegistrationRepositoryImpl implements ClubRegistrationRepositor
     @Override
     public List<ClubStudent> findClubStudentsByStudentId(Connection connection, String studentId) {
         //todo#13 - 핵생 -> 클럽 등록, executeUpdate() 결과를 반환
-        String sql="select * from jdbc_club_registrations where student_id=?";
-        List<ClubStudent> clubStudents = new ArrayList<>();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql))
-        {
-            preparedStatement.setString(1, studentId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) { // 결과셋을 반복하며 데이터 추출
+        String sql = "select a.id as student_id, a.name as student_name, c.club_id, c.club_name from jdbc_students a inner join jdbc_club_registrations b on a.id=b.student_id inner join jdbc_club c on b.club_id=c.club_id where a.id=?";
 
+        ResultSet result = null;
+        try(PreparedStatement psmt = connection.prepareStatement(sql)){
+            psmt.setString(1,studentId);
+            result = psmt.executeQuery();
+            List<ClubStudent> clubStudentList = new ArrayList<>();
 
-                //clubStudents.add(clubStudent); // 리스트에 추가
+            while (result.next()){
+                clubStudentList.add(
+                        new ClubStudent(
+                                result.getString("student_id"),
+                                result.getString("student_name"),
+                                result.getString("club_id"),
+                                result.getString("club_name")
+                        )
+                );
             }
-        }catch(SQLException e){
-            e.printStackTrace();
+            return clubStudentList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            try {
+                if(Objects.nonNull(result)) {
+                    result.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
-        return Collections.emptyList();
     }
 
     @Override
     public List<ClubStudent> findClubStudents(Connection connection) {
         //todo#21 - join
+        String sql=""
         return Collections.emptyList();
     }
 
