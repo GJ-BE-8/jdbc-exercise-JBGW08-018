@@ -19,9 +19,9 @@ public class DbUtils {
         BasicDataSource basicDataSource = new BasicDataSource();
 
         //todo#0 {ip},{databases},{username},{password}설정
-        basicDataSource.setUrl("jdbc:mysql://{ip}:3306/{database}");
-        basicDataSource.setUsername("{username}");
-        basicDataSource.setPassword("{password}");
+        basicDataSource.setUrl("jdbc:mysql://133.186.241.167/nhn_academy_18");
+        basicDataSource.setUsername("nhn_academy_18");
+        basicDataSource.setPassword("4JurKTVRn8!!0bna");
 
         basicDataSource.setInitialSize(5);
         basicDataSource.setMaxTotal(5);
