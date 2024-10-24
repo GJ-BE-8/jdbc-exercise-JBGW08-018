@@ -34,6 +34,7 @@ class ClubRepositoryImplTest {
 
         clubRepository.save(connection,club1);
         clubRepository.save(connection,club2);
+
     }
 
     @AfterEach
